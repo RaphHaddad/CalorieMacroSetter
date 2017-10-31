@@ -9,11 +9,11 @@
     <div class="row">
         <div class="col">
             <label for="carbs-grams">Carbs {{carbs.percent | round}}% (grams)</label>
-            <input type="text" class="form-control number" [ngModel]="carbs.grams | round" (ngModelChange)="carbs.grams = $event" name="carbs-grams" (keyup)="onMacroGramsChange()" />
+            <input type="text" class="form-control number" [ngModel]="carbs.grams | round" (ngModelChange)="carbs.grams = $event" name="carbs-grams" (keyup)="onMacroGramsChange()"/>
             <label for="protein-grams">Protein {{protein.percent | round}}% (grams)</label>
-            <input type="text" class="form-control number" [ngModel]="protein.grams | round" (ngModelChange)="protein.grams = $event" name="protein-grams" (keyup)="onMacroGramsChange()" />
+            <input type="text" class="form-control number" [ngModel]="protein.grams | round" (ngModelChange)="protein.grams = $event" name="protein-grams" (keyup)="onMacroGramsChange()"/>
             <label for="carbs">Fat {{fat.percent | round}}% (grams)</label>
-            <input type="text" class="form-control number" [ngModel]="fat.grams | round" (ngModelChange)="fat.grams = $event" name="fat-grams" (keyup)="onMacroGramsChange()" />
+            <input type="text" class="form-control number" [ngModel]="fat.grams | round" (ngModelChange)="fat.grams = $event" name="fat-grams" (keyup)="onMacroGramsChange()"/>
         </div>
     </div>
 </form>
