@@ -1,0 +1,19 @@
+<p>
+    This macro and calorie setter is designed for people who are already experienced dieters and aware of their body. This includes things like knowing your <a href="https://en.wikipedia.org/wiki/Basal_metabolic_rate" target="_blank">TDEE</a>, <a href="https://en.wikipedia.org/wiki/Insulin_resistance" target="_blank">insulin sensitivity</a>, as well as ideal macro breakdown.
+</p>
+<form>
+    <div class="row">
+        <label for="totalCalories">Calories (kcal)</label>
+        <input type="text" [ngModel]="totalCalories | round" (ngModelChange)="totalCalories = $event" name="totalCalories" (keyup)="onTotalCaloriesChange()"/>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="carbs-grams">Carbs {{carbs.percent | round}}% (grams)</label>
+            <input type="text" class="form-control number" [ngModel]="carbs.grams | round" (ngModelChange)="carbs.grams = $event" name="carbs-grams" (keyup)="onMacroGramsChange()" />
+            <label for="protein-grams">Protein {{protein.percent | round}}% (grams)</label>
+            <input type="text" class="form-control number" [ngModel]="protein.grams | round" (ngModelChange)="protein.grams = $event" name="protein-grams" (keyup)="onMacroGramsChange()" />
+            <label for="carbs">Fat {{fat.percent | round}}% (grams)</label>
+            <input type="text" class="form-control number" [ngModel]="fat.grams | round" (ngModelChange)="fat.grams = $event" name="fat-grams" (keyup)="onMacroGramsChange()" />
+        </div>
+    </div>
+</form>
