@@ -113,16 +113,35 @@ describe('Home component', () => {
         expect(fixture.componentInstance.totalCalories).toEqual(totalCalories);
     }));
 
-    it('should redraw graph after change', async(() => {
+    it('should redraw graph after total calories change', async(() => {
         fixture.componentInstance.totalCalories = 2000;
+
         fixture.componentInstance.onTotalCaloriesChange();
 
-        fixture.componentInstance.carbs.grams = 100;
-        fixture.componentInstance.protein.grams = 30;
-        fixture.componentInstance.fat.grams = 50;
-        fixture.componentInstance.onMacroGramsChange();
+        expect(fixture.componentInstance.chartData[0]).toEqual(fixture.componentInstance.protein.percent);
+        expect(fixture.componentInstance.chartData[1]).toEqual(fixture.componentInstance.fat.percent);
+        expect(fixture.componentInstance.chartData[2]).toEqual(fixture.componentInstance.carbs.percent);
+    }));
 
-        var totalCalories = (100 * 4) + (30 * 4) + (50 * 9);
-        expect(fixture.componentInstance.totalCalories).toEqual(totalCalories);
+    it('should redraw graph after total calories change', async(() => {
+        fixture.componentInstance.fat.grams = 10;
+        fixture.componentInstance.carbs.grams = 20;
+        fixture.componentInstance.protein.grams = 30;
+
+        fixture.componentInstance.onMacroGramsChange();;
+
+        expect(fixture.componentInstance.chartData[0]).toEqual(fixture.componentInstance.protein.percent);
+        expect(fixture.componentInstance.chartData[1]).toEqual(fixture.componentInstance.fat.percent);
+        expect(fixture.componentInstance.chartData[2]).toEqual(fixture.componentInstance.carbs.percent);
+    }));
+
+    it('should label graph propertly', async(() => {
+        fixture.componentInstance.totalCalories = 2000;
+
+        fixture.componentInstance.onTotalCaloriesChange();
+
+        expect(fixture.componentInstance.chartLabels[0]).toEqual('Protein');
+        expect(fixture.componentInstance.chartLabels[1]).toEqual('Fat');
+        expect(fixture.componentInstance.chartLabels[2]).toEqual('Carbs');
     }));
 });

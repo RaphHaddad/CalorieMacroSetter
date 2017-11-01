@@ -3,14 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
 
-import { ChartsModule } from 'ng2-charts';
-
 @NgModule({
     bootstrap: [ AppComponent ],
     imports: [
         BrowserModule,
-        AppModuleShared,
-        ChartsModule
+        AppModuleShared
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl }
