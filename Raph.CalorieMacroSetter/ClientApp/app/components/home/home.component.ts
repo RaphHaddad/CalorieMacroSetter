@@ -11,6 +11,9 @@ export class HomeComponent {
     protein = new CarbAndProtein(30);
     fat = new Fat(30);
 
+    public pieChartLabels: string[] = ['Protein', 'Fat', 'Protein'];
+    public pieChartData: number[] = [300, 500, 100];
+
     public onTotalCaloriesChange(): void {
         this.carbs.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
         this.protein.setGramsAndCaloriesBasedOnPercent(this.totalCalories);

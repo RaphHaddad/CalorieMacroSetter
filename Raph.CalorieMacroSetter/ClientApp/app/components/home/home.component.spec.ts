@@ -112,4 +112,17 @@ describe('Home component', () => {
         var totalCalories = (100 * 4) + (30 * 4) + (50 * 9);
         expect(fixture.componentInstance.totalCalories).toEqual(totalCalories);
     }));
+
+    it('should redraw graph after change', async(() => {
+        fixture.componentInstance.totalCalories = 2000;
+        fixture.componentInstance.onTotalCaloriesChange();
+
+        fixture.componentInstance.carbs.grams = 100;
+        fixture.componentInstance.protein.grams = 30;
+        fixture.componentInstance.fat.grams = 50;
+        fixture.componentInstance.onMacroGramsChange();
+
+        var totalCalories = (100 * 4) + (30 * 4) + (50 * 9);
+        expect(fixture.componentInstance.totalCalories).toEqual(totalCalories);
+    }));
 });
