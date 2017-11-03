@@ -40,9 +40,11 @@ export class HomeComponent implements OnInit {
     }
 
     private drawGraph() {
-        this.chartData[0] = this.protein.percent;
-        this.chartData[1] = this.fat.percent;
-        this.chartData[2] = this.carbs.percent;
+        var newData = [];
+        newData[0] = this.protein.percent;
+        newData[1] = this.fat.percent;
+        newData[2] = this.carbs.percent;
+        this.chartData = newData;
     }
 
     private calculateTotalCalories() {
