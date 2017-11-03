@@ -4,11 +4,13 @@ import { HomeComponent } from './home.component';
 import { RoundPipe } from '../../pipes/round.pipe';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
+
 let fixture: ComponentFixture<HomeComponent>;
 
 describe('Home component', () => {
     beforeEach(() => {
-        TestBed.configureTestingModule({ imports: [FormsModule], declarations: [RoundPipe ,HomeComponent] });
+        TestBed.configureTestingModule({ imports: [FormsModule, ChartsModule], declarations: [RoundPipe ,HomeComponent] });
         fixture = TestBed.createComponent(HomeComponent);
         fixture.detectChanges();
     });

@@ -1,22 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'home',
     templateUrl: './home.component.html'
 })
-export class HomeComponent {
-    totalCalories = 0;
-    carbs = new CarbAndProtein(40);
-    protein = new CarbAndProtein(30);
-    fat = new Fat(30);
+export class HomeComponent implements OnInit {
+
+    totalCalories: number;
+    carbs: CarbAndProtein;
+    protein: CarbAndProtein;
+    fat: Fat;
 
     public chartLabels: string[] = ['Protein', 'Fat', 'Carbs'];
     public chartData: number[] = [300, 500, 100];
+    public isBrowser = false;
+
+    ngOnInit(): void {
+        this.totalCalories = 2000;
+        this.carbs = new CarbAndProtein(40);
+        this.protein = new CarbAndProtein(30);
+        this.fat = new Fat(30);
+        this.onTotalCaloriesChange();
+        this.drawGraph();
+    }
 
     public onTotalCaloriesChange(): void {
         this.carbs.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
         this.protein.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
         this.fat.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
+        this.drawGraph();
     }
 
     public onMacroGramsChange() {
@@ -24,6 +36,13 @@ export class HomeComponent {
         this.carbs.adjustPercentageBasedOnGrams(this.totalCalories);
         this.protein.adjustPercentageBasedOnGrams(this.totalCalories);
         this.fat.adjustPercentageBasedOnGrams(this.totalCalories);
+        this.drawGraph();
+    }
+
+    private drawGraph() {
+        this.chartData[0] = this.protein.percent;
+        this.chartData[1] = this.fat.percent;
+        this.chartData[2] = this.carbs.percent;
     }
 
     private calculateTotalCalories() {
