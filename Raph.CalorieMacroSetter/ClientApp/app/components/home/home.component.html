@@ -6,7 +6,15 @@
 
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-7 col-md-push-5">
+        <canvas baseChart
+                [(data)]="chartData"
+                [labels]="chartLabels"
+                [chartType]="'pie'"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div class="col-md-5 col-md-pull-7">
         <form>
             <label for="totalCalories">Total Calories (kcal)</label>
             <input type="number" [ngModel]="totalCalories | round" class="form-control number" (ngModelChange)="totalCalories = $event" name="totalCalories" (keyup)="onTotalCaloriesChange()" />
@@ -18,15 +26,4 @@
             <input type="number" class="form-control number" [ngModel]="fat.grams | round" (ngModelChange)="fat.grams = $event" name="fat-grams" (keyup)="onMacroGramsChange()" />
         </form>
     </div>
-    <div class="col-md-7">
-        <canvas baseChart
-                [(data)]="chartData"
-                [labels]="chartLabels"
-                [chartType]="'pie'"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-    </div>
 </div>
-
-
-
