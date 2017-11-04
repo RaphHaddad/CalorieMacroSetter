@@ -3,9 +3,22 @@
 </p>
 <h2>Instructions</h2>
 <p>You can set either your total calories or macros per gram. If you set total calories it will automaticaly adjust your macros based on percentage. If you change any of the macros then it will adjust the percentage and the total calories</p>
+
+
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-5">
+        <form>
+            <label for="totalCalories">Total Calories (kcal)</label>
+            <input type="number" [ngModel]="totalCalories | round" class="form-control number" (ngModelChange)="totalCalories = $event" name="totalCalories" (keyup)="onTotalCaloriesChange()" />
+            <label for="carbs-grams">Carbs {{carbs.percent | round}}% (grams)</label>
+            <input type="number" class="form-control number" [ngModel]="carbs.grams | round" (ngModelChange)="carbs.grams = $event" name="carbs-grams" (keyup)="onMacroGramsChange()" />
+            <label for="protein-grams">Protein {{protein.percent | round}}% (grams)</label>
+            <input type="number" class="form-control number" [ngModel]="protein.grams | round" (ngModelChange)="protein.grams = $event" name="protein-grams" (keyup)="onMacroGramsChange()" />
+            <label for="carbs">Fat {{fat.percent | round}}% (grams)</label>
+            <input type="number" class="form-control number" [ngModel]="fat.grams | round" (ngModelChange)="fat.grams = $event" name="fat-grams" (keyup)="onMacroGramsChange()" />
+        </form>
+    </div>
+    <div class="col-md-7">
         <canvas baseChart
                 [(data)]="chartData"
                 [labels]="chartLabels"
@@ -13,22 +26,7 @@
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
     </div>
-    <div class="col-md-2"></div>
 </div>
-<form>
-    <div class="row">
-        <label for="totalCalories">Total Calories (kcal)</label>
-        <input type="text" [ngModel]="totalCalories | round" (ngModelChange)="totalCalories = $event" name="totalCalories" (keyup)="onTotalCaloriesChange()" />
-    </div>
-    <div class="row">
-        <div class="col">
-            <label for="carbs-grams">Carbs {{carbs.percent | round}}% (grams)</label>
-            <input type="text" class="form-control number" [ngModel]="carbs.grams | round" (ngModelChange)="carbs.grams = $event" name="carbs-grams" (keyup)="onMacroGramsChange()" />
-            <label for="protein-grams">Protein {{protein.percent | round}}% (grams)</label>
-            <input type="text" class="form-control number" [ngModel]="protein.grams | round" (ngModelChange)="protein.grams = $event" name="protein-grams" (keyup)="onMacroGramsChange()" />
-            <label for="carbs">Fat {{fat.percent | round}}% (grams)</label>
-            <input type="text" class="form-control number" [ngModel]="fat.grams | round" (ngModelChange)="fat.grams = $event" name="fat-grams" (keyup)="onMacroGramsChange()" />
-        </div>
-    </div>
-</form>
+
+
 
