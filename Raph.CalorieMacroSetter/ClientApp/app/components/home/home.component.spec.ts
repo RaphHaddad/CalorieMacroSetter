@@ -196,6 +196,17 @@ describe('Home component', () => {
         expect(Math.round(fixture.componentInstance.fat.grams)).toEqual(44);
     }));
 
+    it('should round fat %', async(() => {
+        fixture.componentInstance.totalCalories = 2000;
+
+        fixture.componentInstance.carbs.percent = 50;
+        fixture.componentInstance.protein.percent = 30;
+        fixture.componentInstance.fat.percent = 20.04;
+        fixture.componentInstance.onMacroPercentChange();
+
+        expect(fixture.componentInstance.fat.percent).toEqual(20);
+    }));
+
     it('should error if percent greater than 100', async(() => {
         fixture.componentInstance.totalCalories = 2000;
 

@@ -44,10 +44,11 @@ export class HomeComponent implements OnInit {
 
     public onMacroPercentChange() {
         this.errors = [];
+        this.roundPercentage();
         let totalPercent = this.protein.percent + this.carbs.percent + this.fat.percent;
         if (totalPercent !== 100) {
             let addOrTakeAway = totalPercent < 100 ? "add" : "take away";
-            let number = Math.abs(totalPercent - 100);
+            let number = Math.round(Math.abs(totalPercent - 100));
             this.errors.push(new CalculationError("percent", `The total percent should be 100. You currently have ${totalPercent}, so you need to ${addOrTakeAway} ${number}%`));
             return;
         }
@@ -74,6 +75,12 @@ export class HomeComponent implements OnInit {
         let caloriesFromP = this.protein.grams * 4;
         let caloriesFromF = this.fat.grams * 9;
         return caloriesFromC + caloriesFromF + caloriesFromP;
+    }
+
+    private roundPercentage() {
+        this.carbs.percent = Math.round(this.carbs.percent);
+        this.fat.percent = Math.round(this.fat.percent);
+        this.protein.percent = Math.round(this.protein.percent);
     }
 }
 
