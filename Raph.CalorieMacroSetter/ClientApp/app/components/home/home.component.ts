@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
     carbs: CarbAndProtein;
     protein: CarbAndProtein;
     fat: Fat;
+    errors = new Array<CalculationError>();
 
     public chartLabels: string[] = ['Protein', 'Fat', 'Carbs'];
     public chartData: number[] = [300, 500, 100];
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     }
 
     public onTotalCaloriesChange(): void {
+        this.errors = [];
         this.carbs.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
         this.protein.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
         this.fat.setGramsAndCaloriesBasedOnPercent(this.totalCalories);
@@ -32,11 +34,31 @@ export class HomeComponent implements OnInit {
     }
 
     public onMacroGramsChange() {
+        this.errors = [];
         this.totalCalories = this.calculateTotalCalories();
         this.carbs.adjustPercentageBasedOnGrams(this.totalCalories);
         this.protein.adjustPercentageBasedOnGrams(this.totalCalories);
         this.fat.adjustPercentageBasedOnGrams(this.totalCalories);
         this.drawGraph();
+    }
+
+    public onMacroPercentChange() {
+        this.errors = [];
+        let totalPercent = this.protein.percent + this.carbs.percent + this.fat.percent;
+        if (totalPercent !== 100) {
+            let addOrTakeAway = totalPercent < 100 ? "add" : "take away";
+            let number = Math.abs(totalPercent - 100);
+            this.errors.push(new CalculationError("percent", `The total percent should be 100. You currently have ${totalPercent}, so you need to ${addOrTakeAway} ${number}%`));
+            return;
+        }
+        this.carbs.adjustGramsBasedOnPercentage(this.totalCalories);
+        this.protein.adjustGramsBasedOnPercentage(this.totalCalories);
+        this.fat.adjustGramsBasedOnPercentage(this.totalCalories);
+        this.drawGraph();
+    }
+
+    public hasPercentError(): boolean {
+        return this.errors.some(x => x.type === "percent");
     }
 
     private drawGraph() {
@@ -69,6 +91,10 @@ class Macro {
     public adjustPercentageBasedOnGrams(totalCalories: number) {
         
     }
+
+    public adjustGramsBasedOnPercentage(totalCalories: number) {
+        
+    }
 }
 
 class CarbAndProtein extends Macro {
@@ -81,6 +107,20 @@ class CarbAndProtein extends Macro {
         let calories = this.grams * 4;
         this.percent = calories / totalCalories * 100;
     }
+
+    public adjustGramsBasedOnPercentage(totalCalories: number) {
+        let calories = (this.percent / 100) * totalCalories;
+        this.grams = calories / 4;
+    }
+}
+
+class CalculationError {
+    public type: string;
+    public message: string;
+    constructor(type: string, message: string) {
+        this.type = type;
+        this.message = message;
+    }
 }
 
 class Fat extends Macro {
@@ -92,5 +132,10 @@ class Fat extends Macro {
     public adjustPercentageBasedOnGrams(totalCalories: number) {
         let calories = this.grams * 9;
         this.percent = calories / totalCalories * 100;
+    }
+
+    public adjustGramsBasedOnPercentage(totalCalories: number) {
+        let calories = (this.percent / 100) * totalCalories;
+        this.grams = calories / 9;
     }
 }
