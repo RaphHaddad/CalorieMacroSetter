@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "test": "karma start ClientApp/test/karma.conf.js",
-    "run":  ""
+    "publish": "node node_modules/webpack/bin/webpack.js --env.prod && node ./node_modules/http-server/bin/http-server ./wwwroot"
   },
   "dependencies": {
     "@angular/animations": "4.2.5",
@@ -35,6 +35,7 @@
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
     "html-loader": "0.4.5",
+    "http-server": "^0.11.1",
     "isomorphic-fetch": "2.2.1",
     "jquery": "3.2.1",
     "json-loader": "0.5.4",
